@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
+import { Container, TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
 import QuestionPage from './questionPage'
 // import Question from'./question'
 import classnames from 'classnames';
@@ -17,66 +17,76 @@ class Dashboard extends Component{
         }
     }
     render(){
+        const { answeredQuestionIds, unansweredQuestionIds } = this.props
         return (
-          <div>
-            <Nav tabs>
-              <NavItem>
-                <NavLink
-                  className={classnames({
-                    active: this.state.activeTab === "1"
-                  })}
-                  onClick={() => {
-                    this.toggle("1");
-                  }}
-                >
-                  unanswered Questions
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink
-                  className={classnames({
-                    active: this.state.activeTab === "2"
-                  })}
-                  onClick={() => {
-                    this.toggle("2");
-                  }}
-                >
-                  Answered Questions
-                </NavLink>
-              </NavItem>
-            </Nav>
-            <TabContent activeTab={this.state.activeTab}>
-              <TabPane tabId="1">
-                <Row>
-                  <Col sm="12">
-                    <h4>Tab 1 Contents</h4>
-                  </Col>
-                </Row>
-              </TabPane>
-              <TabPane tabId="2">
-                <Row>
-                  <Col sm="6">
-                    <Card body>tab2</Card>
-                  </Col>
-                </Row>
-              </TabPane>
-            </TabContent>
-          </div>
+            <Row>
+              <Col sm="12" md={{ size: 6, offset: 3 }}>
+                <Nav tabs>
+                  <NavItem>
+                    <NavLink
+                      className={classnames({
+                        active: this.state.activeTab === "1"
+                      })}
+                      onClick={() => {
+                        this.toggle("1");
+                      }}
+                    >
+                      unanswered Questions
+                    </NavLink>
+                  </NavItem>
+                  <NavItem>
+                    <NavLink
+                      className={classnames({
+                        active: this.state.activeTab === "2"
+                      })}
+                      onClick={() => {
+                        this.toggle("2");
+                      }}
+                    >
+                      Answered Questions
+                    </NavLink>
+                  </NavItem>
+                </Nav>
+              </Col>
+              <Col sm="12" md={{ size: 6, offset: 3 }}>
+                <div></div>
+                <TabContent activeTab={this.state.activeTab}>
+                  <TabPane tabId="1">
+                    <Row>
+                        {unansweredQuestionIds.map(id => 
+                        <QuestionPage id={id}/>
+                        )}
+                    </Row>
+                  </TabPane>
+                  <TabPane tabId="2">
+                    <Row>
+                        {answeredQuestionIds.map(id => 
+                        <QuestionPage id={id} />
+                        )}
+                    </Row>
+                  </TabPane>
+                </TabContent>
+              </Col>
+            </Row>
         );
     }
 }
 
-function mapStateToProps({questions, users, authedUser}) {
-
+function mapStateToProps({ questions, users, authedUser }) {
+    let answeredQuestionIds = [];
+    let unansweredQuestionIds = [];
     const user = users[authedUser]
-    console.log(user)
-    // const answeredQuestionIds = Object.keys(user[answers])
-    //         .sort((a, b) => questions[b].timestamp - questions[a].timestamp)
-    // return {
-    //     answeredQuestionIds,
-    //     unansweredQuestionIds: Object.keys(questions)
-    //     .filter((qid) => qid !== answeredQuestionIds)
-    //     .sort((a, b) => questions[b].timestamp - questions[a].timestamp)
-    // }
+    if (user) {
+        answeredQuestionIds = Object.keys(user["answers"])
+            .sort((a, b) => questions[b].timestamp - questions[a].timestamp);
+        unansweredQuestionIds = Object.keys(questions)
+            .filter((qid) => qid !== answeredQuestionIds)
+            .sort((a, b) => questions[b].timestamp - questions[a].timestamp)
+    }
+
+    return {
+        answeredQuestionIds,
+        unansweredQuestionIds
+    }
 }
 export default connect(mapStateToProps)(Dashboard)
