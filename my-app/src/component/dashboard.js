@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Container, TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
 import QuestionPage from './questionPage'
-// import Question from'./question'
+import Question from'./question'
 import classnames from 'classnames';
 class Dashboard extends Component{
     state = {
@@ -19,6 +19,7 @@ class Dashboard extends Component{
     render(){
         const { answeredQuestionIds, unansweredQuestionIds } = this.props
         return (
+          <Container>
             <Row>
               <Col sm="12" md={{ size: 6, offset: 3 }}>
                 <Nav tabs>
@@ -48,26 +49,28 @@ class Dashboard extends Component{
                   </NavItem>
                 </Nav>
               </Col>
+
               <Col sm="12" md={{ size: 6, offset: 3 }}>
                 <div></div>
                 <TabContent activeTab={this.state.activeTab}>
                   <TabPane tabId="1">
-                    <Row>
-                        {unansweredQuestionIds.map(id => 
-                        <QuestionPage id={id}/>
-                        )}
-                    </Row>
+                    {unansweredQuestionIds.map(id => (
+                      <Row key={id}>
+                        <QuestionPage id={id} />
+                      </Row>
+                    ))}
                   </TabPane>
                   <TabPane tabId="2">
-                    <Row>
-                        {answeredQuestionIds.map(id => 
+                    {answeredQuestionIds.map(id => (
+                      <Row key={id}>
                         <QuestionPage id={id} />
-                        )}
-                    </Row>
+                      </Row>
+                    ))}
                   </TabPane>
                 </TabContent>
               </Col>
             </Row>
+          </Container>
         );
     }
 }
@@ -80,10 +83,11 @@ function mapStateToProps({ questions, users, authedUser }) {
         answeredQuestionIds = Object.keys(user["answers"])
             .sort((a, b) => questions[b].timestamp - questions[a].timestamp);
         unansweredQuestionIds = Object.keys(questions)
-            .filter((qid) => qid !== answeredQuestionIds)
+            .filter((qid) => !answeredQuestionIds.includes(qid))
             .sort((a, b) => questions[b].timestamp - questions[a].timestamp)
     }
-
+    console.log(answeredQuestionIds)
+    console.log(unansweredQuestionIds)
     return {
         answeredQuestionIds,
         unansweredQuestionIds

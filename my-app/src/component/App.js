@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Dashboard from './dashboard'
 import { connect } from 'react-redux'
 import { handleInitialDataAction } from '../action/shared'
+import LeaderBoard from './leaderBoard';
+import NewQuestion from './newQuestion'
 class App extends Component {
   componentDidMount(){
     this.props.dispatch(handleInitialDataAction())
@@ -9,7 +11,7 @@ class App extends Component {
   render(){
     return (
       <div className="App">
-        <Dashboard />
+        <NewQuestion />
       </div>
     );
   }
