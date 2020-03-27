@@ -24,7 +24,7 @@ class App extends Component {
             
             {notLoggedIn ? <Route path='/' exact component={SignIn}/>
               : <Fragment>
-                <Route path='/home' component={Dashboard} />
+                <Route path='/' exact component={Dashboard} />
                 <Route path='/leaderboard' exact  component={LeaderBoard}/>
                 <Route path='/new' exact component={NewQuestion} />
                 <Route path='/questions/:id' component={QuestionPage} />

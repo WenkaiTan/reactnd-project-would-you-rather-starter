@@ -21,7 +21,6 @@ class QuestionPage extends Component {
         return (
           <Container>
             <Card >
-              {/* {this.renderRedirect()} */}
               <CardHeader className="c">{author} asks:</CardHeader>
               <CardBody>
                 <Row>
@@ -60,5 +59,5 @@ function mapStateToProps({ users, questions,authedUser }, {id}){
         authedUser
     }
 }
-//withRouter
-export default connect(mapStateToProps)(QuestionPage)
+
+export default withRouter(connect(mapStateToProps)(QuestionPage))
