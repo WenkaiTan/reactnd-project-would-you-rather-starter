@@ -2,12 +2,13 @@ import React, {Component} from 'react'
 import { Container, Card, CardHeader, CardBody, CardTitle, CardText, Button, Row, Col
 ,Form, FormGroup, Input, } from 'reactstrap'
 import { connect } from 'react-redux'
-import { formatQuestion } from '../utils/_DATA'
 import { handleSaveQuestion } from '../action/questions'
+import { Redirect } from 'react-router-dom'
 class NewQuestion extends Component{
     state = {
         optionOneText:'',
-        optionTwoText:''
+        optionTwoText:'',
+        toHome: false
     }
 
     handleChange = (e) => {
@@ -19,19 +20,20 @@ class NewQuestion extends Component{
     handleSubmit = (e) => {
         e.preventDefault()
         const {optionOneText, optionTwoText} = this.state   
-        const {dispatch, authedUser} = this.props
-        const author = authedUser
-        const question = formatQuestion({ optionOneText, optionTwoText, author })
-        dispatch(handleSaveQuestion(question))
+        const {dispatch} = this.props
+        dispatch(handleSaveQuestion({optionOneText, optionTwoText}))
 
         this.setState({
             optionOneText:'',
-            optionTwoText:''
+            optionTwoText:'',
+            toHome: true
         })
 
     }
     render(){
-        const {authedUser} = this.props
+        if(this.state.toHome === true){
+            return <Redirect to='/' />
+        }
         return(
             <Container >
                 <Row>
@@ -70,10 +72,5 @@ class NewQuestion extends Component{
     }
 }
 
-function mapStateToProps({authedUser}){
-    return {
-        authedUser
-    }
-}
 
-export default connect(mapStateToProps)(NewQuestion)
+export default connect()(NewQuestion)

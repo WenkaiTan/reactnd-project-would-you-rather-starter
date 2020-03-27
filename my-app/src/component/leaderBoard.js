@@ -1,44 +1,47 @@
 import React, {Component} from 'react'
 import {
-    Card, CardBody,
-    CardTitle, CardText, CardImg, Col, Row
+    Table, Container, CardImg
 } from 'reactstrap'
 import { connect } from 'react-redux'
+
 class LeaderBoard extends Component {
     render(){
-
+        const {users} = this.props
         return(
-            {/* <Card >
-                <CardBody>
-                    <Row>
-                        <Col xs="4">
-                            <CardImg
-                                src={users[author].avatarURL}
-                                alt={author}
-                            ></CardImg>
-                        </Col>
-                        <Col xs="8">
-                            <CardTitle className="b">Would you rather</CardTitle>
-                            <CardText>...{optionOne.text.split(" ")[0]}...</CardText>
-                            <br />
-                            <br />
-                            <Button
-                                color="success"
-                                size="lg"
-                                block
-                                onClick={(e) => this.loadQuestionDetail(e, id)}>
-                                View Poll
-                    </Button>
-                        </Col>
-                    </Row>
-                </CardBody>
-            </Card> */}
+            <Container>
+                <Table>
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Profile</th>
+                            <th>Answered questions</th>
+                            <th>Created questions</th>
+                            <th>Total score</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {users.map((user, index) => (
+                            <tr key={user.id}>
+                                <th scope="row">{index+1}</th>
+                                <td><CardImg style={{width:50,height:50}}src={user.avatarURL} alt={user.name}></CardImg></td>
+                                <td>{Object.keys(user['answers']).length}</td>
+                                <td>{user.questions.length}</td>
+                                <td></td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </Table>
+            </Container>
         )
     }
 }
 
-function mapStateToProps({users, questions}){
-
+function mapStateToProps({users}){
+    const userScore = user => 
+        Object.keys(user['answers']).length + user.questions.length
+    return {
+        users: Object.values(users).sort((a,b) => userScore(b) - userScore(a))
+    }
 }
 
 export default connect(mapStateToProps)(LeaderBoard)
