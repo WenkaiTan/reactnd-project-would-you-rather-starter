@@ -14,6 +14,7 @@ class LeaderBoard extends Component {
                         <tr>
                             <th>Rank</th>
                             <th>Profile</th>
+                            <th>User</th>
                             <th>Answered questions</th>
                             <th>Created questions</th>
                             <th>Total score</th>
@@ -24,9 +25,10 @@ class LeaderBoard extends Component {
                             <tr key={user.id}>
                                 <th scope="row">{index+1}</th>
                                 <td><CardImg style={{width:50,height:50}}src={user.avatarURL} alt={user.name}></CardImg></td>
+                                <td>{user.name}</td>
                                 <td>{Object.keys(user['answers']).length}</td>
                                 <td>{user.questions.length}</td>
-                                <td></td>
+                                <td>{Object.keys(user['answers']).length + user.questions.length}</td>
                             </tr>
                         ))}
                     </tbody>
