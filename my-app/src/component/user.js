@@ -8,7 +8,7 @@ class User extends PureComponent {
         return (
             <Fragment>
                 <img src={user.avatarURL} className='avatar' alt={`Avatar of ${user.name}`} />
-                <span>{user.name}</span>
+                <span className='b'>asked by {user.name}</span>
             </Fragment>
         );
     }

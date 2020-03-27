@@ -20,15 +20,14 @@ class App extends Component {
       <Router>
         <Fragment>
           <div>
-            <NavBar />
-            
-            {notLoggedIn ? <Route path='/' exact component={SignIn}/>
+            {notLoggedIn ? <Route path='/' exact  component={SignIn}/>
               : <Fragment>
+                <NavBar />
                 <Route path='/' exact component={Dashboard} />
-                <Route path='/leaderboard' exact  component={LeaderBoard}/>
-                <Route path='/new' exact component={NewQuestion} />
+                <Route path='/leaderboard'   component={LeaderBoard}/>
+                <Route path='/new'  component={NewQuestion} />
                 <Route path='/questions/:id' component={QuestionPage} />
-                <Route path='logout' exact component={LogOut} />
+                <Route path='logout' component={LogOut} />
               </Fragment>}
           </div>
         </Fragment>

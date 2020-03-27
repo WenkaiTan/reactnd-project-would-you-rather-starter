@@ -5,11 +5,11 @@ import {
     NavbarToggler,
     Nav,
     NavItem,
+    NavbarText,
     NavLink
 } from 'reactstrap';
 import { connect } from 'react-redux'
 import {Link} from 'react-router-dom'
-import User from './user'
 class NavBar extends Component {
     state = {
         isOpen: false,
@@ -31,7 +31,7 @@ class NavBar extends Component {
                     <Collapse isOpen={isOpen} navbar>
                         <Nav className="mr-auto" navbar>
                             <NavItem>
-                                <NavLink tag={Link} to="/" exact>Home</NavLink>
+                                <NavLink tag={Link} to="/" >Home</NavLink>
                             </NavItem>
                             <NavItem>
                                 <NavLink tag={Link} to="/new">New Question</NavLink>
@@ -40,7 +40,7 @@ class NavBar extends Component {
                                 <NavLink tag={Link}to="/leaderboard">Leader Board</NavLink>
                             </NavItem>
                             <NavItem>
-                                <User id={authedUser} />
+                                <NavbarText>Hello {users[authedUser].name}</NavbarText>
                             </NavItem>
                             <NavItem>
                                 <NavLink tag={Link} to="/logout">LogOut</NavLink>
@@ -53,9 +53,10 @@ class NavBar extends Component {
     }
 }
 
-function mapStateToProps({authedUser}){
+function mapStateToProps({users,authedUser}){
     return{
-        authedUser
+        authedUser,
+        users
     }
 }
 

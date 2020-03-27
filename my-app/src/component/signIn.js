@@ -59,10 +59,10 @@ class SignIn extends Component {
                       <Input
                         type="select"
                         name="select"
-                        id="exampleSelect"
+                        value={this.state.selectedOption}
                         onChange={(e) => this.handleChange(e)}
                       >
-                        <option value='0'>Select User:</option>
+                        <option value='' disabled>Select User:</option>
                         {users.map((user,index) => (
                             <option key={user.id} value={index}>{user.name}</option>
                         ))}

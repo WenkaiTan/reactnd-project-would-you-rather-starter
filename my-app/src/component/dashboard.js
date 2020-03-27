@@ -86,8 +86,8 @@ function mapStateToProps({ questions, users, authedUser }) {
             .filter((qid) => !answeredQuestionIds.includes(qid))
             .sort((a, b) => questions[b].timestamp - questions[a].timestamp)
     }
-    console.log(answeredQuestionIds)
-    console.log(unansweredQuestionIds)
+    // console.log(answeredQuestionIds)
+    // console.log(unansweredQuestionIds)
     return {
         answeredQuestionIds,
         unansweredQuestionIds

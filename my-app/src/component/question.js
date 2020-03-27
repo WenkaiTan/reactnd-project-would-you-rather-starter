@@ -33,7 +33,7 @@ class QuestionDetails extends PureComponent {
                             <User id={questionAuthor.id} />
                         </CardHeader>
                         <CardBody>
-                            <CardTitle>Would You Rather</CardTitle>
+                            <CardTitle className='b h1'>Would You Rather...</CardTitle>
                             {answer ?
                                 <div>
                                     <FormGroup>
@@ -73,7 +73,7 @@ class QuestionDetails extends PureComponent {
                                             </Label>
                                         </FormGroup>
                                     </FormGroup>
-                                    <Button disabled={selectedOption === ''}>Submit</Button>
+                                    <Button color='success' block size='lg' disabled={selectedOption === ''}>Submit</Button>
                                 </Form>
                             }
                         </CardBody>
