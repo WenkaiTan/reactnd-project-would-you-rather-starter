@@ -26,6 +26,7 @@ export function addQuestion(question){
         type: ADD_QUESTION,
         question
     }
+    
 }
 
 export function handleSaveQuestion({optionOneText, optionTwoText}){

@@ -11,6 +11,9 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.n {
+  text-decoration: none;
+}
 
 .c {
   text-transform: capitalize;

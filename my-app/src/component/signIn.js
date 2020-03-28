@@ -68,7 +68,7 @@ class SignIn extends Component {
                         ))}
                       </Input>
                     </FormGroup>
-                    <Button size='lg' color='success' block>Submit</Button>
+                    <Button size='lg' color='success'  block disabled={this.state.selectedOption===''}>Submit</Button>
                   </Form>
                 </Card>
               </Col>

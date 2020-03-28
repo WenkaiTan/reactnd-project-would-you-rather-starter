@@ -5,32 +5,42 @@ import { handleInitialDataAction } from '../action/shared'
 import LeaderBoard from './leaderBoard';
 import NewQuestion from './newQuestion'
 import SignIn from './signIn'
-import LogOut from './logOut';
 import NavBar from './nav'
 import QuestionPage from './question'
-import { BrowserRouter as Router, Route, Redirect} from 'react-router-dom'
+import NotFound from './notFound'
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 import LoadingBar from 'react-redux-loading'
+// import PrivateRoute from './privateRoute'
 class App extends Component {
   componentDidMount(){
     this.props.dispatch(handleInitialDataAction())
   }
-  render(){
-    const { notLoggedIn } = this.props
 
+  render(){
+    const { isAuthenticated } = this.props
+    const PrivateRoute = ({ component: Component, ...rest }) => (
+      <Route {...rest} render={(props) => (
+        isAuthenticated === false
+          ? <Component {...props} />
+          : <Redirect to='/' />
+      )} />
+    )
     return (
       <Router>
         <Fragment>
-          <div>
-            {notLoggedIn ? <Route path='/' exact component={SignIn}/>
-              : <Fragment>
-                <NavBar />
-                <Route path='/' exact  component={Dashboard} />
-                <Route path='/leaderboard'   component={LeaderBoard}/>
-                <Route path='/new'  component={NewQuestion} />
-                <Route path='/questions/:id' component={QuestionPage} />
-                <Route path='logout' component={LogOut} />
-              </Fragment>}
-          </div>
+          <LoadingBar />
+           <Switch>
+              {isAuthenticated ? <Route path='/' exact component={SignIn}/>
+                : <Fragment>
+                  <NavBar />
+                  <Route path='/' exact component={Dashboard} />
+                  <PrivateRoute path='/leaderboard'  component={LeaderBoard}/>
+                  <PrivateRoute path='/new'  component={NewQuestion} />
+                  <PrivateRoute path='/questions/:id' component={QuestionPage} />
+                </Fragment>
+                }
+              <Route component={NotFound} />  
+          </Switch>
         </Fragment>
       </Router>
     );
@@ -38,7 +48,7 @@ class App extends Component {
 }
 function mapStateToProps({authedUser}){
   return{
-   notLoggedIn: authedUser === null
+   isAuthenticated: authedUser === null
   }
 }
 export default connect(mapStateToProps)(App);
