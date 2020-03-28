@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {
-    Card, CardImg, CardText, CardBody,
-    CardTitle, CardSubtitle, Button, CardHeader, Container,Row, Col, Form, FormGroup, Label, Input
+    Card, CardImg, CardText,
+    CardTitle, CardSubtitle, Button, CardHeader, Container,Row, Col, Form, FormGroup, Input
 } from 'reactstrap'
 import { connect } from 'react-redux'
 import {setAuthedUser} from '../action/authedUser'
@@ -31,7 +31,7 @@ class SignIn extends Component {
     render(){
         const { users } = this.props
         if(this.state.toHome === true){
-            return <Redirect to='/'/ >
+            return <Redirect to='/'/>
         }
         return (
           <Container>

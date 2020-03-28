@@ -8,7 +8,7 @@ import SignIn from './signIn'
 import LogOut from './logOut';
 import NavBar from './nav'
 import QuestionPage from './question'
-import { BrowserRouter as Router, Route, Switch} from 'react-router-dom'
+import { BrowserRouter as Router, Route, Redirect} from 'react-router-dom'
 import LoadingBar from 'react-redux-loading'
 class App extends Component {
   componentDidMount(){
@@ -16,14 +16,15 @@ class App extends Component {
   }
   render(){
     const { notLoggedIn } = this.props
+
     return (
       <Router>
         <Fragment>
           <div>
-            {notLoggedIn ? <Route path='/' exact  component={SignIn}/>
+            {notLoggedIn ? <Route path='/' exact component={SignIn}/>
               : <Fragment>
                 <NavBar />
-                <Route path='/' exact component={Dashboard} />
+                <Route path='/' exact  component={Dashboard} />
                 <Route path='/leaderboard'   component={LeaderBoard}/>
                 <Route path='/new'  component={NewQuestion} />
                 <Route path='/questions/:id' component={QuestionPage} />

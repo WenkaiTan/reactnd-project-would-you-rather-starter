@@ -12,7 +12,7 @@ class QuestionPage extends Component {
     }
 
     render(){
-        const { question, users, authedUser } = this.props
+        const { question, users } = this.props
         const {optionOne, author, id} = question
         if(question === null){
             return <p>This question does not exist!</p>

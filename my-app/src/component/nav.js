@@ -1,62 +1,62 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import {
     Collapse,
     Navbar,
     NavbarToggler,
     Nav,
+    NavbarBrand,
     NavItem,
     NavbarText,
-    NavLink
+    NavLink,
+    Container
 } from 'reactstrap';
 import { connect } from 'react-redux'
 import {Link} from 'react-router-dom'
-class NavBar extends Component {
-    state = {
-        isOpen: false,
-        setIsOpen: false
-    }
-    toggle = () => {
-        this.setState({
-            inOpen: !this.state.isOpen
-        })
-    }
-    render(){
-        const {isOpen} = this.state
-        const {  authedUser } = this.props
-        console.log(authedUser)
+const NavBar = (props) => {
+    const [isOpen, setIsOpen] = useState(false);
+
+    const toggle = () => setIsOpen(!isOpen);
+    const { user } = props
         return (
             <div>
-                <Navbar color="light" light expand="md">
-                    <NavbarToggler onClick={this.toggle} />
-                    <Collapse isOpen={isOpen} navbar>
-                        <Nav className="mr-auto" navbar>
-                            <NavItem>
-                                <NavLink tag={Link} to="/" >Home</NavLink>
-                            </NavItem>
-                            <NavItem>
-                                <NavLink tag={Link} to="/new">New Question</NavLink>
-                            </NavItem>
-                            <NavItem>
-                                <NavLink tag={Link}to="/leaderboard">Leader Board</NavLink>
-                            </NavItem>
-                            <NavItem>
-                                <NavbarText>Hello {users[authedUser].name}</NavbarText>
-                            </NavItem>
-                            <NavItem>
-                                <NavLink tag={Link} to="/logout">LogOut</NavLink>
-                            </NavItem>
-                        </Nav>
-                    </Collapse>
-                </Navbar>
+                <Container>
+
+                    <Navbar bg='primary' variant='dark' light expand="md">
+                        <NavbarBrand className='b h1'>Would you rather?</NavbarBrand>
+                        <NavbarToggler onClick={toggle} />
+                        <Collapse isOpen={isOpen} navbar>
+                            <Nav className="mr-auto" navbar >
+                                <NavItem>
+                                    <NavLink tag={Link} to="/" >Home</NavLink>
+                                </NavItem>
+                                <NavItem>
+                                    <NavLink tag={Link} to="/new">New Question</NavLink>
+                                </NavItem>
+                                <NavItem>
+                                    <NavLink tag={Link} to="/leaderboard">Leader Board</NavLink>
+                                </NavItem>
+                                <NavItem>
+                                    <NavLink tag={Link} to="/logout">LogOut</NavLink>
+                                </NavItem>
+                            </Nav>
+                            
+                                <NavbarText className='text-right'>
+                                    <img src={user.avatarURL} className='avatar' alt={`Avatar of ${user.name}`} />
+                                    <span className='b'>Hello {user.name}</span>
+                                </NavbarText>
+                            
+                        </Collapse>
+                    </Navbar>
+                </Container>
+
             </div>
         );
-    }
+    
 }
 
 function mapStateToProps({users,authedUser}){
     return{
-        authedUser,
-        users
+        user: users[authedUser]
     }
 }
 
