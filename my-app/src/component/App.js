@@ -8,9 +8,9 @@ import SignIn from './signIn'
 import NavBar from './nav'
 import QuestionPage from './question'
 import NotFound from './notFound'
-import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import LoadingBar from 'react-redux-loading'
-// import PrivateRoute from './privateRoute'
+ import PrivateRoute from './privateRoute'
 class App extends Component {
   componentDidMount(){
     this.props.dispatch(handleInitialDataAction())
@@ -18,13 +18,7 @@ class App extends Component {
 
   render(){
     const { isAuthenticated } = this.props
-    const PrivateRoute = ({ component: Component, ...rest }) => (
-      <Route {...rest} render={(props) => (
-        isAuthenticated ?
-          <Component {...props} />
-          : <Redirect to='/' />
-      )} />
-    )
+
     return (
       <Router>
         <Fragment>
