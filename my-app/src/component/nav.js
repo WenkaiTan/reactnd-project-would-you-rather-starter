@@ -36,7 +36,7 @@ const NavBar = (props) => {
                                     <NavLink tag={Link} to="/" >Home</NavLink>
                                 </NavItem>
                                 <NavItem>
-                                    <NavLink tag={Link} to="/new">New Question</NavLink>
+                                    <NavLink tag={Link} to="/add">New Question</NavLink>
                                 </NavItem>
                                 <NavItem>
                                     <NavLink tag={Link} to="/leaderboard">Leader Board</NavLink>

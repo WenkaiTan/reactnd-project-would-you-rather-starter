@@ -31,7 +31,7 @@ class SignIn extends Component {
     render(){
         const { users } = this.props
         if(this.state.toHome === true){
-            return <Redirect to='/'/>
+            return <Redirect to='/' />
         }
         return (
           <Container>

@@ -20,8 +20,8 @@ class App extends Component {
     const { isAuthenticated } = this.props
     const PrivateRoute = ({ component: Component, ...rest }) => (
       <Route {...rest} render={(props) => (
-        isAuthenticated === false
-          ? <Component {...props} />
+        isAuthenticated ?
+          <Component {...props} />
           : <Redirect to='/' />
       )} />
     )
@@ -29,17 +29,18 @@ class App extends Component {
       <Router>
         <Fragment>
           <LoadingBar />
-           <Switch>
-              {isAuthenticated ? <Route path='/' exact component={SignIn}/>
-                : <Fragment>
-                  <NavBar />
-                  <Route path='/' exact component={Dashboard} />
-                  <PrivateRoute path='/leaderboard'  component={LeaderBoard}/>
-                  <PrivateRoute path='/new'  component={NewQuestion} />
-                  <PrivateRoute path='/questions/:id' component={QuestionPage} />
-                </Fragment>
-                }
-              <Route component={NotFound} />  
+          <Switch>
+            {isAuthenticated ? 
+            <Fragment>
+              <NavBar />
+              <Route path='/' exact component={Dashboard} />
+              <PrivateRoute path='/leaderboard' component={LeaderBoard} />
+              <PrivateRoute path='/new' component={NewQuestion} />
+              <PrivateRoute path='/questions/:id' component={QuestionPage} />
+            </Fragment>
+              : <Route path='/' exact component={SignIn} />
+            }
+            <PrivateRoute component={NotFound} />
           </Switch>
         </Fragment>
       </Router>
@@ -48,7 +49,7 @@ class App extends Component {
 }
 function mapStateToProps({authedUser}){
   return{
-   isAuthenticated: authedUser === null
+   isAuthenticated: authedUser !== null
   }
 }
 export default connect(mapStateToProps)(App);
