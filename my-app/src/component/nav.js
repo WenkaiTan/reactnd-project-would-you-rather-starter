@@ -25,7 +25,7 @@ const NavBar = (props) => {
         return (
             
             <div>
-                <>{user !== null &&                 
+                <>{user &&                 
                 <Container>
                     <Navbar bg='success' variant='dark' light expand="md">
                         <NavbarToggler onClick={toggle} />
