@@ -7,9 +7,6 @@ import { connect } from 'react-redux'
 import {setAuthedUser} from '../action/authedUser'
 import {Redirect} from 'react-router-dom'
 class SignIn extends Component {
-  componentDidMount(){
-    console.log("this.props =>\n\n", this.props)
-  }
     state = {
         selectedOption: '',
         toHome: false
@@ -34,7 +31,11 @@ class SignIn extends Component {
     render(){
         const { users } = this.props
         if(this.state.toHome === true){
-            return <Redirect to='/' />
+          if (this.props.location.state && this.props.location.state.from.pathname) {
+            return <Redirect to={this.props.location.state.from.pathname} />
+          } else {
+            return <Redirect to="/" />
+          }
         }
         return (
           <Container>
