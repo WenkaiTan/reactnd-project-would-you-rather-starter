@@ -25,8 +25,8 @@ const NavBar = (props) => {
         return (
             
             <div>
+                <>{user !== null &&                 
                 <Container>
-
                     <Navbar bg='success' variant='dark' light expand="md">
                         <NavbarToggler onClick={toggle} />
                         <Collapse isOpen={isOpen} navbar>
@@ -42,18 +42,19 @@ const NavBar = (props) => {
                                     <NavLink tag={Link} to="/leaderboard">Leader Board</NavLink>
                                 </NavItem>
                             </Nav>
-                            
-                                <NavbarText className='text-right'>
-                                    <img src={user.avatarURL} className='avatar' alt={`Avatar of ${user.name}`} />
-                                    <span className='b'>Hello {user.name}</span>
-                                </NavbarText>
-                          
-                                <Button outline color='seconddary' onClick={handleClick} >Log out</Button>
-                            
-                            
+
+                            <NavbarText className='text-right'>
+                                <img src={user.avatarURL} className='avatar' alt={`Avatar of ${user.name}`} />
+                                <span className='b'>Hello {user.name}</span>
+                            </NavbarText>
+
+                            <Button outline color='seconddary' onClick={handleClick} >Log out</Button>
+
+
                         </Collapse>
                     </Navbar>
-                </Container>
+                </Container>}</>
+
 
             </div>
         );
