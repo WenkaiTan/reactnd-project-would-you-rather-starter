@@ -22,9 +22,10 @@ class App extends Component {
       <Route {...rest} render={(props) => (
         isAuthenticated === false
           ? <Component {...props} />
-          : <Redirect to='/' />
+          : <Redirect to='/'/>
       )} />
     )
+    
     return (
       <Router>
         <Fragment>
@@ -39,7 +40,7 @@ class App extends Component {
                   <PrivateRoute path='/questions/:id' component={QuestionPage} />
                 </Fragment>
                 }
-              <Route component={NotFound} />  
+              <PrivateRoute component={NotFound} />  
           </Switch>
         </Fragment>
       </Router>

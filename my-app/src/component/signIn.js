@@ -7,6 +7,9 @@ import { connect } from 'react-redux'
 import {setAuthedUser} from '../action/authedUser'
 import {Redirect} from 'react-router-dom'
 class SignIn extends Component {
+  componentDidMount(){
+    console.log("this.props =>\n\n", this.props)
+  }
     state = {
         selectedOption: '',
         toHome: false
